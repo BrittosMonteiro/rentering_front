@@ -63,19 +63,36 @@ export default{
                 && this.txtEmail !== ''
                 && this.txtUser !== ''
                 && this.txtPass !== '')) {
-                    this.done = true
-                    setTimeout(() => {
-                        this.done = false
+                    fetch("https://localhost:5001/api/Account/v1/Accounts/Create", {
+                        method: 'POST',
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify({
+                            firstName: this.txtName,
+                            lastName: this.txtSname,
+                            email: this.txtEmail,
+                            username: this.txtUser,
+                            password: this.txtPass,
+                            confirmPassword: this.txtPass
+                        })
+                    })
+                    .then((res) => {
+                        return console.log(res)
+                    })
+                    // this.done = true
+                    // setTimeout(() => {
+                    //     this.done = false
 
-                        this.txtName = ''
-                        this.txtSname = ''
-                        this.txtEmail = ''
-                        this.txtUser = ''
-                        this.txtPass = ''
+                    //     this.txtName = ''
+                    //     this.txtSname = ''
+                    //     this.txtEmail = ''
+                    //     this.txtUser = ''
+                    //     this.txtPass = ''
 
-                        this.$emit('openLoginForm')
+                    //     this.$emit('openLoginForm')
 
-                    }, 3000);
+                    // }, 3000);
                 } else {
                     this.signUpError = true
                     setTimeout(() => {
@@ -83,6 +100,25 @@ export default{
                     }, 5000);
                 }
         }
+    },
+    created(){
+        // fetch("https://localhost:5001/api/Account/v1/Accounts/Create", {
+        //     method: 'POST',
+        //     headers: {
+        //         "Content-Type": "application/json"
+        //     },
+        //     body: JSON.stringify({
+        //         firstName: "Lucas",
+        //         lastName: "Monteiro",
+        //         email: "monteiro@gmail.com",
+        //         username: "monteiro",
+        //         password: "b123456m",
+        //         confirmPassword: "b123456m"
+        //     })
+        // })
+        // .then((res) => {
+        //     return console.log(res)
+        // })
     }
 }
 </script>
