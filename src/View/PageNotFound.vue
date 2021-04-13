@@ -7,6 +7,9 @@
 <script>
 export default{
     name: 'PageNotFound',
+    created(){
+        document.title = 'Rentering | Página não encontrada'
+    }
 }
 </script>
 
