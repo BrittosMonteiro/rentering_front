@@ -1,10 +1,10 @@
 <template>
     <form @submit="handleLogin">
         <h1 class="form-title">Acessar minha conta</h1>
-        <h2 class="form-alert false-alert" v-if="loginError">Login/senha incorreta</h2>
+        <h2 class="form-alert false-alert" v-if="loginError">{{errorMessage}}</h2>
         <div class="form-group">
             <label for="" class=""></label>
-            <input type="email" class="txt-input" v-model="txtEmail" id="txt-email" placeholder="E-mail" />
+            <input type="text" class="txt-input" v-model="txtUser" id="txt-user" placeholder="Usuário" />
         </div>
         <div class="form-group">
             <label for="" class=""></label>
@@ -25,8 +25,9 @@ export default{
     name: 'Login',
     data(){
         return {
-            txtEmail: '',
+            txtUser: '',
             txtPass: '',
+            errorMessage: '',
             loginError: false,
         }
     },
@@ -40,11 +41,35 @@ export default{
 
         handleLogin: function(e){
             e.preventDefault();
-            if((this.txtEmail !== null && this.txtPass !== null)
+            if((this.txtUser !== null && this.txtPass !== null)
                 &&
-                (this.txtEmail !== '' && this.txtPass !== '')) {
-                this.$router.push({ path: 'Dashboard' })
+                (this.txtUser !== '' && this.txtPass !== '')) {
+                    fetch("https://localhost:5001/api/Account/v1/Accounts/Login", {
+                        method: 'POST',
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify({
+                            username: this.txtUser,
+                            password: this.txtPass,
+                        })
+                    })
+                    .then((res) => {
+                        if(res.status !== 200){
+                            throw 'Usuário/senha incorretos'
+                        }
+                        console.log(res)
+                        // this.$router.push({ path: 'Dashboard' })
+                    })
+                    .catch((err) => {
+                        this.errorMessage = err
+                        this.loginError = true,
+                        setTimeout(() => {
+                            this.loginError = false
+                        }, 3000)
+                    })
             } else {
+                this.errorMessage = 'Preencha os campos'
                 this.loginError = true,
                 setTimeout(() => {
                     this.loginError = false

@@ -78,21 +78,22 @@ export default{
                         })
                     })
                     .then((res) => {
-                        return console.log(res)
+                        if(res.status == 200){
+                            this.done = true
+                            setTimeout(() => {
+                                this.done = false
+
+                                this.txtName = ''
+                                this.txtSname = ''
+                                this.txtEmail = ''
+                                this.txtUser = ''
+                                this.txtPass = ''
+
+                                this.$emit('openLoginForm')
+
+                            }, 3000);
+                        }
                     })
-                    // this.done = true
-                    // setTimeout(() => {
-                    //     this.done = false
-
-                    //     this.txtName = ''
-                    //     this.txtSname = ''
-                    //     this.txtEmail = ''
-                    //     this.txtUser = ''
-                    //     this.txtPass = ''
-
-                    //     this.$emit('openLoginForm')
-
-                    // }, 3000);
                 } else {
                     this.signUpError = true
                     setTimeout(() => {
@@ -102,23 +103,7 @@ export default{
         }
     },
     created(){
-        // fetch("https://localhost:5001/api/Account/v1/Accounts/Create", {
-        //     method: 'POST',
-        //     headers: {
-        //         "Content-Type": "application/json"
-        //     },
-        //     body: JSON.stringify({
-        //         firstName: "Lucas",
-        //         lastName: "Monteiro",
-        //         email: "monteiro@gmail.com",
-        //         username: "monteiro",
-        //         password: "b123456m",
-        //         confirmPassword: "b123456m"
-        //     })
-        // })
-        // .then((res) => {
-        //     return console.log(res)
-        // })
+        
     }
 }
 </script>
