@@ -103,7 +103,7 @@ export default{
         }
     },
     created(){
-        
+        document.title = 'Rentering | Cadastro'
     }
 }
 </script>

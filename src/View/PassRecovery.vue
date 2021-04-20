@@ -46,6 +46,9 @@ export default{
                 }, 3000);
             }
         }
+    },
+    created(){
+        document.title = 'Rentering | Recuperar senha'
     }
 }
 </script>
